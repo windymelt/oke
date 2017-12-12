@@ -3,7 +3,8 @@
   (:import-from
    :uiop
    :run-program
-   :chdir)
+   :chdir
+   :getcwd)
   (:import-from
    :oke.debug
    :debugp)

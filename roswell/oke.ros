@@ -11,7 +11,7 @@ exec ros -Q -S ${REPO} -- $0 "$@"
   )
 
 (defpackage :ros.script.oke.3722073830
-  (:use :cl :optima :oke))
+  (:use :cl :optima :local-time :oke))
 (in-package :ros.script.oke.3722073830)
 
 (defun main (&rest argv)

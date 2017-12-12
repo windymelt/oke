@@ -11,7 +11,7 @@
   :version "0.1.0"
   :author "Windymelt"
   :license ""
-  :depends-on ("optima" "cl-annot" "cl-ppcre" "uiop")
+  :depends-on ("optima" "cl-annot" "cl-ppcre" "uiop" "local-time")
   :components ((:module "src"
                 :components
                 ((:file "oke"
