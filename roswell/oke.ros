@@ -1,0 +1,25 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+DN=$(dirname $0)
+REPO=$(cd $DN/.. && pwd)
+exec ros -Q -S ${REPO} -- $0 "$@"
+|#
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp (ql:quickload '(:oke :optima :cl-annot :cl-ppcre) :silent t)
+  )
+
+(defpackage :ros.script.oke.3722073830
+  (:use :cl :optima :oke))
+(in-package :ros.script.oke.3722073830)
+
+(defun main (&rest argv)
+  (declare (ignorable argv))
+  (or (match argv
+        ((cons "exec" rest) (command-exec rest))
+        ((cons "history" rest) (command-history rest))
+        ((list "version") (command-version))
+        ((list "help") (command-help)))
+      (command-help)))
+;;; vim: set ft=lisp lisp:
