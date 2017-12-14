@@ -41,16 +41,18 @@
 
 @export
 (defun run-git-null (&rest args)
-  (git nil nil args))
+  (git nil nil args t))
 
 @export
 (defun run-git-output (&rest args)
   (git 'string nil args))
 
-(defun git (out in args)
+(defun git (out in args &optional ignore-errors)
   (when (debugp)
     (format *error-output* ">>> RUN git ~{~A~^ ~}~%" args))
   (uiop:run-program (format nil "git ~{~A~^ ~}" args)
                     :output out
                     :error-output t
-                    :input in))
+                    :input in
+                    :ignore-error-status ignore-errors ; nil in default
+                    ))
