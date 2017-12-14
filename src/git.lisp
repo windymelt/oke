@@ -4,7 +4,8 @@
    :uiop
    :run-program
    :chdir
-   :getcwd)
+   :getcwd
+   :subprocess-error-code)
   (:import-from
    :oke.debug
    :debugp)
@@ -29,14 +30,27 @@
   (chomp (run-git-output "config" "remote.origin.url")))
 
 @export
+(defun git-get-revision ()
+  (handler-case (chomp (run-git-output "rev-parse" "HEAD"))
+    (error (e)
+      (when (debugp) (format *error-output* "=> ~A" (subprocess-error-code e)))
+      "")))
+@export
 (defun run-git (&rest args)
-  (git t args))
+  (git t nil args))
+
+@export
+(defun run-git-null (&rest args)
+  (git nil nil args))
 
 @export
 (defun run-git-output (&rest args)
-  (git 'string args))
+  (git 'string nil args))
 
-(defun git (out args)
+(defun git (out in args)
   (when (debugp)
     (format *error-output* ">>> RUN git ~{~A~^ ~}~%" args))
-  (uiop:run-program (format nil "git ~{~A~^ ~}" args) :output out))
+  (uiop:run-program (format nil "git ~{~A~^ ~}" args)
+                    :output out
+                    :error-output t
+                    :input in))

@@ -9,4 +9,4 @@
 
 @export
 (defun debugp ()
-  (if (getenv "CLOS_DEBUG") t nil))
+  (if (getenv "OKE_DEBUG") t nil))
