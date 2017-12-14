@@ -159,7 +159,7 @@ oke version")
     "")
    "\\1/\\2"))
 
-(defconstant +log-template+
+(defparameter +log-template+
    "command: ~{~A~^ ~}
 user: ~A
 repoPath: ~A
