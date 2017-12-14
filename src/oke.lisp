@@ -28,7 +28,7 @@
 
 (defmacro chdir (to)
   `(prog2
-       (format *error-output* ">>> CHDIR ~A~%" ,to)
+       (when (debugp) (format *error-output* ">>> CHDIR ~A~%" ,to))
        (uiop:chdir ,to)))
 
 (defun load-proj-config ()
